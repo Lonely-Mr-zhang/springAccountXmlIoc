@@ -3,8 +3,12 @@ package io.github.lonelyMrZhang.test;
 import io.github.lonelyMrZhang.entity.Account;
 import io.github.lonelyMrZhang.service.IAccountService;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
@@ -13,14 +17,19 @@ import java.util.List;
  * @author: lonely.mr.zhang
  * @date: 2020/6/16 12:40 上午
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath:bean.xml")
 public class AccountServiceTest {
+
+    @Autowired
+    private IAccountService accountService;
 
     @Test
     public void testFindAll(){
         //1、获取容器
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
-        //2、得到业务层对象
-        IAccountService accountService = applicationContext.getBean("accountService",IAccountService.class);
+//        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+//        //2、得到业务层对象
+//        IAccountService accountService = applicationContext.getBean("accountService",IAccountService.class);
         //3、执行方法
         List<Account> allAccount = accountService.findAllAccount();
         for (Account item:allAccount){
